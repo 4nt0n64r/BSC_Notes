@@ -29,7 +29,14 @@ class MainActivity : AppCompatActivity(), ViewInterface {
     override fun onResume() {
         super.onResume()
         binding.save.setOnClickListener {
-            presenter.saveClicked()
+            if (binding.header.text.toString().trim() != "" && binding.body.text.toString().trim() != ""){
+                presenter.saveClicked()
+            }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
