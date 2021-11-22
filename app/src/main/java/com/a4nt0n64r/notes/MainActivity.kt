@@ -1,12 +1,17 @@
 package com.a4nt0n64r.notes
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
-import android.widget.TextView
-import androidx.core.content.ContextCompat
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import com.a4nt0n64r.notes.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
+/**
+ *  Активити с простой реализацией сценария создания заметки, имеющую заголовок и обычный текст в качестве контента
+ */
 class MainActivity : AppCompatActivity(), ViewInterface {
 
     private lateinit var presenter: MainPresenter
@@ -23,7 +28,8 @@ class MainActivity : AppCompatActivity(), ViewInterface {
     }
 
     override fun showSnackBar() {
-        Snackbar.make(binding.constraint, "Success", Snackbar.LENGTH_LONG).show()
+        this.hideKeyboard()
+        Snackbar.make(binding.constraint, getString(R.string.success), Snackbar.LENGTH_LONG).show()
     }
 
     override fun onResume() {
@@ -38,5 +44,14 @@ class MainActivity : AppCompatActivity(), ViewInterface {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun Activity.hideKeyboard() {
+        hideKeyboard(currentFocus ?: View(this))
+    }
+
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
