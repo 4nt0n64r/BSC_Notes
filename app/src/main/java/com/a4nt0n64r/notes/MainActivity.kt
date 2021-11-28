@@ -2,6 +2,7 @@ package com.a4nt0n64r.notes
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -27,17 +28,43 @@ class MainActivity : AppCompatActivity(), ViewInterface {
         presenter = MainPresenterImpl(this)
     }
 
-    override fun showSnackBar() {
+    override fun showSnackBar(message: String) {
         this.hideKeyboard()
-        Snackbar.make(binding.constraint, getString(R.string.success), Snackbar.LENGTH_LONG).show()
+        Snackbar.make(binding.constraint, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun trySendYoutubeIntent(query: String) {
+        try {
+            val intent = Intent(Intent.ACTION_SEARCH)
+            intent.setPackage("com.google.android.youtube")
+            intent.putExtra("query", query)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        } catch (e: Exception) {
+            showSnackBar(e.message ?: getString(R.string.error))
+        }
+    }
+
+    private fun openAboutActivity() {
+        startActivity(Intent(this, AboutActivity::class.java))
     }
 
     override fun onResume() {
         super.onResume()
         binding.save.setOnClickListener {
-            if (binding.header.text.toString().trim() != "" && binding.body.text.toString().trim() != ""){
+            if (binding.header.text.toString().trim() != "" && binding.body.text.toString()
+                    .trim() != ""
+            ) {
                 presenter.saveClicked()
             }
+        }
+        binding.about.setOnClickListener {
+            openAboutActivity()
+        }
+        binding.share.setOnClickListener {
+            presenter.searchClicked(binding.header.text.toString() +
+                " " +
+                binding.body.text.toString())
         }
     }
 
@@ -51,7 +78,8 @@ class MainActivity : AppCompatActivity(), ViewInterface {
     }
 
     private fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
