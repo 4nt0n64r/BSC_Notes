@@ -4,4 +4,7 @@
     <string name="text">Text</string>
     <string name="header">Header</string>
     <string name="success">Success</string>
+    <string name="error">Something went wrong</string>
+    <string name="about">About</string>
+    <string name="share">share</string>
 </resources>
