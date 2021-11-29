@@ -9,22 +9,16 @@ import com.a4nt0n64r.notes.databinding.ActivityAboutBinding
  */
 class AboutActivity : AppCompatActivity() {
 
-    private var _binding: ActivityAboutBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityAboutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityAboutBinding.inflate(layoutInflater)
+        binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 
     override fun onResume() {
         super.onResume()
         binding.version.text = BuildConfig.VERSION_NAME
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }

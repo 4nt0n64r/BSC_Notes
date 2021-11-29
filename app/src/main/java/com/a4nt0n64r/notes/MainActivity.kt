@@ -17,12 +17,11 @@ class MainActivity : AppCompatActivity(), ViewInterface {
 
     private lateinit var presenter: MainPresenter
 
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         presenter = MainPresenterImpl(this)
@@ -52,25 +51,22 @@ class MainActivity : AppCompatActivity(), ViewInterface {
     override fun onResume() {
         super.onResume()
         binding.save.setOnClickListener {
-            if (binding.header.text.toString().trim() != "" && binding.body.text.toString()
-                    .trim() != ""
+            if (binding.header.text.toString().trim().isNotEmpty() && binding.body.text.toString()
+                    .trim().isNotEmpty()
             ) {
-                presenter.saveClicked()
+                presenter.saveClicked(getString(R.string.success))
             }
         }
         binding.about.setOnClickListener {
             openAboutActivity()
         }
         binding.share.setOnClickListener {
-            presenter.searchClicked(binding.header.text.toString() +
-                " " +
-                binding.body.text.toString())
+            presenter.searchClicked(
+                binding.header.text.toString() +
+                        " " +
+                        binding.body.text.toString()
+            )
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
     private fun Activity.hideKeyboard() {
