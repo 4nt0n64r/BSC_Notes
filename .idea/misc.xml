@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/fr_2/BSC_Notes/app/src/main/res/drawable/divider_drawable.xml" value="0.28055555555555556" />
         <entry key="..\:/fr_2/BSC_Notes/app/src/main/res/layout/activity_about.xml" value="0.275" />
         <entry key="..\:/fr_2/BSC_Notes/app/src/main/res/layout/activity_main.xml" value="0.2222222222222222" />
+        <entry key="..\:/fr_2/BSC_Notes/app/src/main/res/layout/fragment_list.xml" value="0.275" />
+        <entry key="..\:/fr_2/BSC_Notes/app/src/main/res/layout/fragment_note.xml" value="0.24722222222222223" />
+        <entry key="..\:/fr_2/BSC_Notes/app/src/main/res/layout/note_item.xml" value="0.275" />
       </map>
     </option>
   </component>
