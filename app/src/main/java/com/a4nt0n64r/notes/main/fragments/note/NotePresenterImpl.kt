@@ -18,4 +18,13 @@ class NotePresenterImpl(private val view: NoteView) : NotePresenter {
     override fun setNote(note: NoteUI) {
         view.showNote(note)
     }
+
+    override fun searchClicked(note: NoteUI) {
+        val query = note.header + " " + note.text
+        view.trySendYoutubeIntent(query)
+    }
+
+    override fun saveClicked(note: NoteUI) {
+        view.saveNote(note)
+    }
 }

@@ -82,6 +82,20 @@ interface NotePresenter {
      *  @param note - заметка
      */
     fun setNote(note: NoteUI)
+
+    /**
+     *  Обработка клика на кнопку "Search"
+     *
+     *  @param note - заметка
+     */
+    fun searchClicked(note: NoteUI)
+
+    /**
+     *  Обработка клика на кнопку "Save"
+     *
+     *  @param note - заметка
+     */
+    fun saveClicked(note: NoteUI)
 }
 
 /**
@@ -99,4 +113,19 @@ interface NoteView {
      *  @param note - заметка
      */
     fun showNote(note: NoteUI)
+
+    /**
+     *  Сохранение заметки
+     *
+     *  @param note - заметка
+     */
+    fun saveNote(note: NoteUI)
+
+    /**
+     *  Пробуем поискать заметку на YouTube, если не выходит - показываем Snackbar с сообщением
+     *  ошибки
+     *
+     *  @param query - Текст для поиска
+     */
+    fun trySendYoutubeIntent(query: String)
 }

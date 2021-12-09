@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".main.fragments.note.NoteFragment">
 
-    <TextView
+    <EditText
         android:id="@+id/note_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Header" />
 
-    <TextView
+    <EditText
         android:id="@+id/note_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,12 +32,13 @@
         app:layout_constraintTop_toBottomOf="@id/note_header"
         tools:text="Text text text" />
 
-    <TextView
+    <EditText
         android:id="@+id/note_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/app_margin_8dp"
         android:layout_marginTop="@dimen/app_margin_8dp"
+        android:inputType="date"
         android:textAlignment="center"
         android:textSize="@dimen/app_medium_text_18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,5 +55,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/note_date" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_margin_8dp"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_margin_8dp"
+        android:text="@string/search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/save" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

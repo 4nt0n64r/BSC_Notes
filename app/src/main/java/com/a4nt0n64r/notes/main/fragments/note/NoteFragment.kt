@@ -1,14 +1,13 @@
 package com.a4nt0n64r.notes.main.fragments.note
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.a4nt0n64r.notes.MainActivityInterface
-import com.a4nt0n64r.notes.NOTE_ITEM_BUNDLE
-import com.a4nt0n64r.notes.NotePresenter
-import com.a4nt0n64r.notes.NoteView
+import com.a4nt0n64r.notes.*
 import com.a4nt0n64r.notes.databinding.FragmentNoteBinding
 import com.a4nt0n64r.notes.main.models.NoteUI
 
@@ -41,6 +40,43 @@ class NoteFragment : Fragment(), NoteView {
         binding.back.setOnClickListener {
             presenter.backClicked()
         }
+
+        binding.save.setOnClickListener {
+            presenter.saveClicked(
+                NoteUI(
+                    binding.noteHeader.text.toString(),
+                    binding.noteText.text.toString(),
+                    binding.noteDate.text.toString()
+                )
+            )
+        }
+
+        binding.search.setOnClickListener {
+            presenter.searchClicked(
+                NoteUI(
+                    binding.noteHeader.text.toString(),
+                    binding.noteText.text.toString(),
+                    binding.noteDate.text.toString()
+                )
+            )
+        }
+    }
+
+    override fun saveNote(note: NoteUI) {
+        Log.d(NOTE_SAVING, note.toString())
+        (activity as MainActivityInterface).showSnackBar(getString(R.string.success))
+    }
+
+    override fun trySendYoutubeIntent(query: String) {
+        try {
+            val intent = Intent(Intent.ACTION_SEARCH)
+            intent.setPackage("com.google.android.youtube")
+            intent.putExtra("query", query)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        } catch (e: Exception) {
+            (activity as MainActivityInterface).showSnackBar(e.message ?: getString(R.string.error))
+        }
     }
 
     override fun backClicked() {
@@ -48,8 +84,8 @@ class NoteFragment : Fragment(), NoteView {
     }
 
     override fun showNote(note: NoteUI) {
-        binding.noteHeader.text = note.header
-        binding.noteText.text = note.text
-        binding.noteDate.text = note.date
+        binding.noteHeader.setText(note.header)
+        binding.noteText.setText(note.text)
+        binding.noteDate.setText(note.date)
     }
 }
