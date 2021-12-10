@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.a4nt0n64r.notes.*
+import com.a4nt0n64r.notes.databinding.FragmentListBinding
 import com.a4nt0n64r.notes.databinding.FragmentNoteBinding
 import com.a4nt0n64r.notes.main.models.NoteUI
 
@@ -16,15 +17,16 @@ import com.a4nt0n64r.notes.main.models.NoteUI
  */
 class NoteFragment : Fragment(), NoteView {
 
-    lateinit var binding: FragmentNoteBinding
+    private var _binding: FragmentNoteBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var presenter: NotePresenter
+    private var presenter: NotePresenter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentNoteBinding.inflate(layoutInflater)
+        _binding = FragmentNoteBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -34,15 +36,15 @@ class NoteFragment : Fragment(), NoteView {
         presenter = NotePresenterImpl(this)
 
         if (this.arguments != null) {
-            presenter.setNote(this.requireArguments().getSerializable(NOTE_ITEM_BUNDLE) as NoteUI)
+            presenter?.setNote(this.requireArguments().getSerializable(NOTE_ITEM_BUNDLE) as NoteUI)
         }
 
         binding.back.setOnClickListener {
-            presenter.backClicked()
+            presenter?.backClicked()
         }
 
         binding.save.setOnClickListener {
-            presenter.saveClicked(
+            presenter?.saveClicked(
                 NoteUI(
                     binding.noteHeader.text.toString(),
                     binding.noteText.text.toString(),
@@ -52,7 +54,7 @@ class NoteFragment : Fragment(), NoteView {
         }
 
         binding.search.setOnClickListener {
-            presenter.searchClicked(
+            presenter?.searchClicked(
                 NoteUI(
                     binding.noteHeader.text.toString(),
                     binding.noteText.text.toString(),
@@ -60,6 +62,12 @@ class NoteFragment : Fragment(), NoteView {
                 )
             )
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        presenter = null
     }
 
     override fun saveNote(note: NoteUI) {

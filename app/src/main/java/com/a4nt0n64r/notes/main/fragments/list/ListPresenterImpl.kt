@@ -7,7 +7,7 @@ import com.a4nt0n64r.notes.main.models.NoteUI
 /**
  * Презентер для экрана списка заметок
  *
- * @param view  - Экран списка заметок
+ * @param view экран списка заметок
  */
 class ListPresenterImpl(private val view: ListView) : ListPresenter {
 

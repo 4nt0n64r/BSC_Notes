@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  *  ItemDecoration для отступов в списке
  *
- *  @param spaceSize - id ресурса с размером отступа для элемента списка со всех сторон
+ *  @param spaceSize id ресурса с размером отступа для элемента списка со всех сторон
  */
 class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(

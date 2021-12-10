@@ -13,7 +13,7 @@ import com.a4nt0n64r.notes.main.models.NoteUI
 /**
  * Адаптер для списка заметок
  *
- * @param noteClick - функция действия по клику на карточку заметки
+ * @param noteClick функция действия по клику на карточку заметки
  */
 class NotesAdapter(private val noteClick: (NoteUI) -> Unit) :
     ListAdapter<NoteUI, NotesAdapter.ItemViewHolder>(DiffCallback()) {

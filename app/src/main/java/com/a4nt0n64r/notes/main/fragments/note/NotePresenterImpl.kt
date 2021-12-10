@@ -7,7 +7,7 @@ import com.a4nt0n64r.notes.main.models.NoteUI
 /**
  * Презентер для экрана с информацией о заметке
  *
- * @param view - Экран с информацией о заметке
+ * @param view Экран с информацией о заметке
  */
 class NotePresenterImpl(private val view: NoteView) : NotePresenter {
 
