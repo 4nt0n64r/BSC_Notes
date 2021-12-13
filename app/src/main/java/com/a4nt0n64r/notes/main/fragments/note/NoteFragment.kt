@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.a4nt0n64r.notes.*
-import com.a4nt0n64r.notes.databinding.FragmentListBinding
 import com.a4nt0n64r.notes.databinding.FragmentNoteBinding
 import com.a4nt0n64r.notes.main.models.NoteUI
 
@@ -17,17 +16,16 @@ import com.a4nt0n64r.notes.main.models.NoteUI
  */
 class NoteFragment : Fragment(), NoteView {
 
-    private var _binding: FragmentNoteBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentNoteBinding? = null
 
     private var presenter: NotePresenter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentNoteBinding.inflate(layoutInflater)
-        return binding.root
+    ): View? {
+        binding = FragmentNoteBinding.inflate(layoutInflater)
+        return binding.let { it?.root }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,34 +37,40 @@ class NoteFragment : Fragment(), NoteView {
             presenter?.setNote(this.requireArguments().getSerializable(NOTE_ITEM_BUNDLE) as NoteUI)
         }
 
-        binding.back.setOnClickListener {
-            presenter?.backClicked()
+        binding.let {
+            it?.back?.setOnClickListener {
+                presenter?.backClicked()
+            }
         }
 
-        binding.save.setOnClickListener {
-            presenter?.saveClicked(
-                NoteUI(
-                    binding.noteHeader.text.toString(),
-                    binding.noteText.text.toString(),
-                    binding.noteDate.text.toString()
+        binding.let {
+            it?.save?.setOnClickListener {
+                presenter?.saveClicked(
+                    NoteUI(
+                        binding?.noteHeader?.text.toString(),
+                        binding?.noteText?.text.toString(),
+                        binding?.noteDate?.text.toString()
+                    )
                 )
-            )
+            }
         }
 
-        binding.search.setOnClickListener {
-            presenter?.searchClicked(
-                NoteUI(
-                    binding.noteHeader.text.toString(),
-                    binding.noteText.text.toString(),
-                    binding.noteDate.text.toString()
+        binding.let {
+            it?.search?.setOnClickListener {
+                presenter?.searchClicked(
+                    NoteUI(
+                        binding?.noteHeader?.text.toString(),
+                        binding?.noteText?.text.toString(),
+                        binding?.noteDate?.text.toString()
+                    )
                 )
-            )
+            }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+        binding = null
         presenter = null
     }
 
@@ -92,8 +96,10 @@ class NoteFragment : Fragment(), NoteView {
     }
 
     override fun showNote(note: NoteUI) {
-        binding.noteHeader.setText(note.header)
-        binding.noteText.setText(note.text)
-        binding.noteDate.setText(note.date)
+        binding.let {
+            it?.noteHeader?.setText(note.header)
+            it?.noteText?.setText(note.text)
+            it?.noteDate?.setText(note.date)
+        }
     }
 }
