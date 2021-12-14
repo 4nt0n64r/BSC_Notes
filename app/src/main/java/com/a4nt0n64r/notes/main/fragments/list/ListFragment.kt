@@ -27,10 +27,9 @@ class ListFragment : Fragment(), ListView {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentListBinding.inflate(layoutInflater)
-        return binding.let { it?.root }
-    }
+    ): View  = FragmentListBinding.inflate(layoutInflater).also {
+        binding = it
+    }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,29 +39,33 @@ class ListFragment : Fragment(), ListView {
         setupRecyclerView()
         presenter?.getNotes()
 
-        binding.let {
-            it?.noteList?.addItemDecoration(
+        binding?.let {
+            it.noteList.addItemDecoration(
                 MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.app_margin_8dp))
             )
         }
 
-        binding.let {
-            it?.about?.setOnClickListener {
+        binding?.let {
+            it.about.setOnClickListener {
                 openAboutActivity()
             }
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        binding = null
         presenter = null
     }
 
     private fun setupRecyclerView() {
         notesAdapter = NotesAdapter { note -> noteClick(note) }
-        binding.let {
-            it?.noteList?.apply {
+        binding?.let {
+            it.noteList.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = notesAdapter
             }
