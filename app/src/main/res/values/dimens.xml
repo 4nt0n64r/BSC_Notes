@@ -2,4 +2,6 @@
 <resources>
     <dimen name="app_margin_8dp">8dp</dimen>
     <dimen name="app_large_text_24sp">24sp</dimen>
+    <dimen name="card_corner_radius_5dp">5dp</dimen>
+    <dimen name="app_medium_text_18sp">18sp</dimen>
 </resources>

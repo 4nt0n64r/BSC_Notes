@@ -1,0 +1,7 @@
+package com.a4nt0n64r.notes
+
+const val NOTE_ITEM_BUNDLE = "NOTE_ITEM_BUNDLE"
+const val LIST_FRAGMENT = "LIST_FRAGMENT"
+const val NOTE_FRAGMENT = "NOTE_FRAGMENT"
+const val BACKSTACK = "BACKSTACK"
+const val NOTE_SAVING = "NOTE_SAVING"
